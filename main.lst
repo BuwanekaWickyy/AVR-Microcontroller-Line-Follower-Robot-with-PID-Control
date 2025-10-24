@@ -1,0 +1,256 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	uart_init
+  18               	uart_init:
+  19               	.LFB8:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 1092 C500 		sts 197,__zero_reg__
+  25               	.LM3:
+  26 0004 87E6      		ldi r24,lo8(103)
+  27 0006 8093 C400 		sts 196,r24
+  28               	.LM4:
+  29 000a E0EC      		ldi r30,lo8(192)
+  30 000c F0E0      		ldi r31,hi8(192)
+  31 000e 8081      		ld r24,Z
+  32 0010 8D7F      		andi r24,lo8(-3)
+  33 0012 8083      		st Z,r24
+  34               	.LM5:
+  35 0014 E2EC      		ldi r30,lo8(194)
+  36 0016 F0E0      		ldi r31,hi8(194)
+  37 0018 8081      		ld r24,Z
+  38 001a 8660      		ori r24,lo8(6)
+  39 001c 8083      		st Z,r24
+  40               	.LM6:
+  41 001e E1EC      		ldi r30,lo8(193)
+  42 0020 F0E0      		ldi r31,hi8(193)
+  43 0022 8081      		ld r24,Z
+  44 0024 8861      		ori r24,lo8(24)
+  45 0026 8083      		st Z,r24
+  46               	/* epilogue start */
+  47               	.LM7:
+  48 0028 0895      		ret
+  49               	.LFE8:
+  51               	.global	uart_putchar
+  53               	uart_putchar:
+  54               	.LFB9:
+  55               	.LM8:
+  56               	.LVL0:
+  57               	/* prologue: function */
+  58               	/* frame size = 0 */
+  59 002a 982F      		mov r25,r24
+  60               	.LVL1:
+  61               	.L4:
+  62               	.LM9:
+  63 002c 8091 C000 		lds r24,192
+  64 0030 85FF      		sbrs r24,5
+  65 0032 00C0      		rjmp .L4
+  66               	.LM10:
+  67 0034 9093 C600 		sts 198,r25
+  68               	/* epilogue start */
+  69               	.LM11:
+  70 0038 0895      		ret
+  71               	.LFE9:
+  73               	.global	uart_putchar_printf
+  75               	uart_putchar_printf:
+  76               	.LFB10:
+  77               	.LM12:
+  78               	.LVL2:
+  79               	/* prologue: function */
+  80               	/* frame size = 0 */
+  81 003a 982F      		mov r25,r24
+  82               	.LM13:
+  83 003c 8A30      		cpi r24,lo8(10)
+  84 003e 01F4      		brne .L11
+  85               	.L12:
+  86               	.LBB16:
+  87               	.LBB17:
+  88               	.LM14:
+  89 0040 8091 C000 		lds r24,192
+  90               	.LVL3:
+  91 0044 85FF      		sbrs r24,5
+  92 0046 00C0      		rjmp .L12
+  93               	.LM15:
+  94 0048 8DE0      		ldi r24,lo8(13)
+  95 004a 8093 C600 		sts 198,r24
+  96               	.LVL4:
+  97               	.L11:
+  98               	.LBE17:
+  99               	.LBE16:
+ 100               	.LBB18:
+ 101               	.LBB19:
+ 102               	.LM16:
+ 103 004e 8091 C000 		lds r24,192
+ 104 0052 85FF      		sbrs r24,5
+ 105 0054 00C0      		rjmp .L11
+ 106               	.LM17:
+ 107 0056 9093 C600 		sts 198,r25
+ 108               	.LBE19:
+ 109               	.LBE18:
+ 110               	.LM18:
+ 111 005a 80E0      		ldi r24,lo8(0)
+ 112 005c 90E0      		ldi r25,hi8(0)
+ 113               	/* epilogue start */
+ 114 005e 0895      		ret
+ 115               	.LFE10:
+ 117               		.data
+ 118               	.LC0:
+ 119 0000 0A20 00   		.string	"\n "
+ 120               	.LC1:
+ 121 0003 4E75 6D62 		.string	"Number : "
+ 121      6572 203A 
+ 121      2000 
+ 122               		.text
+ 123               	.global	main
+ 125               	main:
+ 126               	.LFB7:
+ 127               	.LM19:
+ 128 0060 AF92      		push r10
+ 129 0062 BF92      		push r11
+ 130 0064 CF92      		push r12
+ 131 0066 DF92      		push r13
+ 132 0068 EF92      		push r14
+ 133 006a FF92      		push r15
+ 134 006c 0F93      		push r16
+ 135 006e 1F93      		push r17
+ 136 0070 DF93      		push r29
+ 137 0072 CF93      		push r28
+ 138 0074 CDB7      		in r28,__SP_L__
+ 139 0076 DEB7      		in r29,__SP_H__
+ 140 0078 6097      		sbiw r28,16
+ 141 007a 0FB6      		in __tmp_reg__,__SREG__
+ 142 007c F894      		cli
+ 143 007e DEBF      		out __SP_H__,r29
+ 144 0080 0FBE      		out __SREG__,__tmp_reg__
+ 145 0082 CDBF      		out __SP_L__,r28
+ 146               	/* prologue: function */
+ 147               	/* frame size = 16 */
+ 148               	.LM20:
+ 149 0084 0E94 0000 		call uart_init
+ 150               	.LM21:
+ 151 0088 80E0      		ldi r24,lo8(mystdout)
+ 152 008a 90E0      		ldi r25,hi8(mystdout)
+ 153 008c 9093 0000 		sts (__iob+2)+1,r25
+ 154 0090 8093 0000 		sts __iob+2,r24
+ 155               	.LM22:
+ 156 0094 00D0      		rcall .
+ 157 0096 80E0      		ldi r24,lo8(.LC0)
+ 158 0098 90E0      		ldi r25,hi8(.LC0)
+ 159 009a EDB7      		in r30,__SP_L__
+ 160 009c FEB7      		in r31,__SP_H__
+ 161 009e 9283      		std Z+2,r25
+ 162 00a0 8183      		std Z+1,r24
+ 163 00a2 0E94 0000 		call printf
+ 164 00a6 00E0      		ldi r16,lo8(0)
+ 165 00a8 10E0      		ldi r17,hi8(0)
+ 166               	.LVL5:
+ 167 00aa 0F90      		pop __tmp_reg__
+ 168 00ac 0F90      		pop __tmp_reg__
+ 169               	.LM23:
+ 170 00ae 7E01      		movw r14,r28
+ 171 00b0 0894      		sec
+ 172 00b2 E11C      		adc r14,__zero_reg__
+ 173 00b4 F11C      		adc r15,__zero_reg__
+ 174               	.LM24:
+ 175 00b6 90E0      		ldi r25,lo8(.LC1)
+ 176 00b8 A92E      		mov r10,r25
+ 177 00ba 90E0      		ldi r25,hi8(.LC1)
+ 178 00bc B92E      		mov r11,r25
+ 179               	.LBB20:
+ 180               	.LBB21:
+ 181               	.LBB22:
+ 182               	.LBB23:
+ 183               	.LM25:
+ 184 00be 80E4      		ldi r24,lo8(8000)
+ 185 00c0 C82E      		mov r12,r24
+ 186 00c2 8FE1      		ldi r24,hi8(8000)
+ 187 00c4 D82E      		mov r13,r24
+ 188               	.L16:
+ 189               	.LBE23:
+ 190               	.LBE22:
+ 191               	.LBE21:
+ 192               	.LBE20:
+ 193               	.LM26:
+ 194 00c6 C801      		movw r24,r16
+ 195 00c8 B701      		movw r22,r14
+ 196 00ca 4AE0      		ldi r20,lo8(10)
+ 197 00cc 50E0      		ldi r21,hi8(10)
+ 198 00ce 0E94 0000 		call itoa
+ 199               	.LM27:
+ 200 00d2 8AE0      		ldi r24,lo8(10)
+ 201 00d4 90E0      		ldi r25,hi8(10)
+ 202 00d6 0E94 0000 		call putchar
+ 203               	.LM28:
+ 204 00da 00D0      		rcall .
+ 205 00dc EDB7      		in r30,__SP_L__
+ 206 00de FEB7      		in r31,__SP_H__
+ 207 00e0 B282      		std Z+2,r11
+ 208 00e2 A182      		std Z+1,r10
+ 209 00e4 0E94 0000 		call printf
+ 210               	.LM29:
+ 211 00e8 EDB7      		in r30,__SP_L__
+ 212 00ea FEB7      		in r31,__SP_H__
+ 213 00ec F282      		std Z+2,r15
+ 214 00ee E182      		std Z+1,r14
+ 215 00f0 0E94 0000 		call printf
+ 216               	.LM30:
+ 217 00f4 0F5F      		subi r16,lo8(-(1))
+ 218 00f6 1F4F      		sbci r17,hi8(-(1))
+ 219               	.LBB27:
+ 220               	.LBB26:
+ 221               	.LBB25:
+ 222               	.LBB24:
+ 223               	.LM31:
+ 224 00f8 C601      		movw r24,r12
+ 225               	.LVL6:
+ 226               	/* #APP */
+ 227               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 228 00fa 0197      		1: sbiw r24,1
+ 229 00fc 01F4      		brne 1b
+ 230               	 ;  0 "" 2
+ 231               	/* #NOAPP */
+ 232 00fe 0F90      		pop __tmp_reg__
+ 233 0100 0F90      		pop __tmp_reg__
+ 234 0102 00C0      		rjmp .L16
+ 235               	.LBE24:
+ 236               	.LBE25:
+ 237               	.LBE26:
+ 238               	.LBE27:
+ 239               	.LFE7:
+ 241               		.data
+ 244               	mystdout:
+ 245 000d 0000 00   		.skip 3,0
+ 246 0010 02        		.byte	2
+ 247 0011 0000 0000 		.skip 4,0
+ 248 0015 0000      		.word	gs(uart_putchar_printf)
+ 249 0017 0000      		.word	0
+ 250 0019 0000      		.word	0
+ 299               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:2      *ABS*:0000003f __SREG__
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:5      *ABS*:00000034 __CCP__
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:18     .text:00000000 uart_init
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:53     .text:0000002a uart_putchar
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:75     .text:0000003a uart_putchar_printf
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:125    .text:00000060 main
+C:\Users\Sasanka\AppData\Local\Temp/ccoxYzek.s:244    .data:0000000d mystdout
+
+UNDEFINED SYMBOLS
+__iob
+printf
+itoa
+putchar
+__do_copy_data
